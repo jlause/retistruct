@@ -79,7 +79,7 @@ csv.read.dataset <- function(dataset) {
   ##    stop("Unable to find a closed outline.")
   ## }
 
-  d <- Dataset(o, dataset, Ds, Ss, cols=cols, raw=list(outline=out), Gs=Gs)
+  d <- Dataset(o, dataset, Ds, Ss, cols=cols, raw=list(outline=out), Gs=Gs)#,offset=offset) #adding offset information allowing later datapoints to be transformed correctly before usage (JL 2019)
   a <- AnnotatedOutline(d)
   a <- RetinalDataset(a)
   return(a)

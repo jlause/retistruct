@@ -4,8 +4,8 @@
 \alias{ReconstructedOutline}
 \title{Reconstruct outline into spherical surface}
 \usage{
-ReconstructedOutline(o, n = 500, alpha = 8, x0 = 0.5, report = print,
-  plot.3d = FALSE, dev.flat = NA, dev.polar = NA)
+ReconstructedOutline(o, n = 500, alpha = 8, x0 = 0.5,
+  report = print, plot.3d = FALSE, dev.flat = NA, dev.polar = NA)
 }
 \arguments{
 \item{o}{\code{\link{AnnotatedOutline}} object, containing the following information:\describe{

@@ -20,7 +20,8 @@
 ##' argument.
 ##' @return A \code{dataset} object.
 ##' @author David Sterratt
-Dataset <- function(o, dataset, Ds, Ss, cols, raw, Gs=NULL) {
+Dataset <- function(o, dataset, Ds, Ss, cols, raw, Gs=NULL){#,
+                    #offset=NULL) { #added offset to be able to add new datasets later (JL 2019)
   d <- o
   class(d) <- addClass("dataset", o)
   d$dataset <- dataset
@@ -32,6 +33,7 @@ Dataset <- function(o, dataset, Ds, Ss, cols, raw, Gs=NULL) {
   d$cols <- cols
   d$raw <- raw
   d$Gs <- Gs
+  #d$offset = offset#added offset to be able to add new datasets later (JL 2019)
   return(d)
 }
 

@@ -245,7 +245,12 @@ retistruct.read.recdata <- function(o, check=TRUE) {
 ##' @export
 retistruct.reconstruct <- function(o, report=message,
                                    plot.3d=FALSE, dev.flat=NA, dev.polar=NA,
+                                   #reuse_reconstruction=FALSE, #flag to skip reconstruction and just project datapoints (added by JL)
+                                   #old_reconstruction=NULL,    #holds old reconstruction object and datapoints to be projected (added by JL)
                                    ...) {
+  
+  #if (!reuse_reconstruction){
+  
   ## Check that markup is there
   if (!retistruct.check.markup(o)) {
     stop("Neither dorsal nor nasal pole specified")
@@ -270,16 +275,27 @@ retistruct.reconstruct <- function(o, report=message,
       o$lambda0 <- pi
     }
   }
-
+  
   ## Now do folding itself
   r <- NULL
+  # this runs the actual reconstruction (comment by JL 2019) 
+  # also gives 'r' useful functions, e.g. getStrains() will give strain values for the triangle mesh (comment by JL 2019) 
   r <- ReconstructedOutline(o,
                             report=report,
                             plot.3d=plot.3d, dev.flat=dev.flat,
                             dev.polar=dev.polar,
                             ...)
+    
+  # } else
+  #   {r = old_reconstruction}
+  
+  
   if (!is.null(r)) {
+    # infer datapoint locations in new space (comment by JL 2019)
+    # >>>> this we want to do flexibly and multiple times with the same reconstruction / 'r' object (output from line above)  (comment by JL 2019)
     r <- ReconstructedDataset(r, report=report)
+    
+    #if there is OD data, measure OD displacement and print  (comment by JL 2019)
     if (!is.na(getLandmarkID(r, "OD"))) {
       SssMean <- getSssMean(r)
       r$EOD <- 90 + SssMean[["OD"]][1,"phi"] * 180/pi
@@ -288,7 +304,10 @@ retistruct.reconstruct <- function(o, report=message,
                  ";", r$nflip, "flipped triangles. OD displacement:",
                  format(r$EOD, 2),
                  "degrees."))
-        
+
+    # these two functions ensure that the 'side' flag and the "DVflip" flag are used to transform points accordingly (comment by JL 2019)
+    # specifically, they add functions to the 'r' object that allow to fetch the points with the needed transformations  (comment by JL 2019)
+    # ideally, these functions should be kept compatible (comment by JL 2019)
     r <- RetinalReconstructedOutline(r, report=report)
     r <- RetinalReconstructedDataset(r, report=report)
     report("")
@@ -340,6 +359,13 @@ retistruct.save.recdata <- function(r) {
     r$version <- recfile.version        # Datafile version
     if (!is.null(r)) {
       save(r, file=file.path(r$dataset, "r.Rdata"))
+      #### Additional saving of spherical coordinates per dataset (JL 2019) ###
+      for (dataset_name in names(r$Dsc)) {
+        write.table(r$Dsc[[dataset_name]],file=file.path(r$dataset, sprintf("datapoints_%s_cartesian.csv",dataset_name)),sep=',',dec = '.',row.names=FALSE)
+        write.table(r$Dss[[dataset_name]],file=file.path(r$dataset, sprintf("datapoints_%s_spherical.csv",dataset_name)),sep=',',dec = '.',row.names=FALSE)
+      }
+      
+      #########################################################################
     }
   }
 }

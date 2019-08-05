@@ -39,8 +39,20 @@ read.image <- function(dataset) {
 ##' \item{\code{Ds}}{List of sets of datapoints. Each set comprises a 2-column matrix and each set is named.}
 ##' \item{\code{cols}}{List of colours for each dataset. There is one element that corresponds to each element of \code{Ds} and which bears the same name.}
 ##' @author David Sterratt
+##' @export
 read.datapoints <- function(dataset) {
   datfile <- file.path(dataset, "datapoints.csv")
+  #,
+                            #path_only=FALSE, #flag for read-in mode that specifies the file path instead of using datapoints.csv (JL 2019)
+                            #path=NULL)       #argument for the file path (JL 2019)
+  # {
+  # if (path_only) {
+  #   datfile = path
+  #   }
+  # else {
+  #   datfile <- file.path(dataset, "datapoints.csv")
+  #   }
+  
   Ds <- list()
   cols <- c()
   if (file.exists(datfile)) {

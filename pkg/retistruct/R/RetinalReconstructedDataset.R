@@ -18,10 +18,16 @@ RetinalReconstructedDataset <- function(r, report=message) {
     stop("Argument needs to inherit reconstructedDataset and retinalDataset")
   }
   class(r) <- addClass("retinalReconstructedDataset", r)
-  report("Computing KDE and contours of points")
-  r$KDE <- getKDE(r)
-  report("Computing KR and contours of counts")
-  r$KR <-  getKR(r)
+  
+  
+  ### Disable computation of KDE and contours for speed (JL 2019) ###
+  report("NOT Computing KDE and contours of points")
+  #report("Computing KDE and contours of points")
+  #r$KDE <- getKDE(r)
+  #report("Computing KR and contours of counts")
+  #r$KR <-  getKR(r)
+  ###################################################################
+  
   return(r)
 }
 

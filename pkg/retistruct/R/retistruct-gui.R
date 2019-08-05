@@ -282,7 +282,11 @@ retistruct <- function() {
     } else {
       retistruct.save.recdata(r)
     }
-    retistruct.export.matlab(r)
+    ### disabled for speed (JL 2019) ##########
+    report('not saving data to matlab file')
+    warning('not saving data to matlab file')
+    #retistruct.export.matlab(r)
+    ###########################################
     unsaved.data(FALSE)
   }
 

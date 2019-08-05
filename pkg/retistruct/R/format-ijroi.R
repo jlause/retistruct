@@ -44,6 +44,7 @@ ijroi.read.dataset <- function(dataset) {
   dat <- read.datapoints(dataset)
   Ds <- c(Ds, dat$Ds)
   cols <- c(cols, dat$cols)
+  # offset subtraction reverses y axis to account for reversed imageJ coordinates (comment by JL)
   Ds <- lapply(Ds, function(P) {cbind(P[,1], offset - P[,2])})
 
   Ss <- list()
@@ -54,6 +55,7 @@ ijroi.read.dataset <- function(dataset) {
   if (file.exists(od.file)) {
     roi <- RImageJROI::read.ijroi(od.file)
     out <-  roi$coords
+    # offset subtraction reverses y axis to account for reversed imageJ coordinates (comment by JL)
     out[,2] <- offset - out[,2]
     Ss[["OD"]] <- out
   }
@@ -67,7 +69,7 @@ ijroi.read.dataset <- function(dataset) {
   ##    stop("Unable to find a closed outline.")
   ## }
 
-  d <- Dataset(o, dataset, Ds, Ss, cols=cols, raw=list(outline=out))
+  d <- Dataset(o, dataset, Ds, Ss, cols=cols, raw=list(outline=out))#,offset=offset) #passed offset on to next steps
   a <- AnnotatedOutline(d)
   a <- RetinalDataset(a)
   return(a)

@@ -21,15 +21,23 @@ ReconstructedDataset <- function(r, report=message) {
   Dsb <- list() # Datapoints in barycentric coordinates
   Dsc <- list() # Datapoints on reconstructed sphere in cartesian coordinates
   Dss <- list() # Datapoints on reconstructed sphere in spherical coordinates
+  
+  
+  #Ds: List of datapoint sets (comment by JL 2019)
+  #Check that there is at least one dataset (comment by JL 2019)
   if (!is.null(r$Ds) & (length(r$Ds) > 0)) {
+    #go through datasets (names() gets dataset names) (comment by JL 2019)
     for (name in names(r$Ds)) {
+      #get datapoints in barycentric coordinates (returns NA values for those outside the triangulated area)  (comment by JL 2019)
       Dsb[[name]] <- tsearchn(r$P, r$T, r$Ds[[name]])
       oo <- is.na(Dsb[[name]]$idx)     # Points outwith outline
       if (any(oo)) {
         warning(paste(sum(oo), name, "datapoints outwith the outline will be ignored."))
       }
+      #remove out-of-outline datapoints (comment by JL 2019)
       Dsb[[name]]$p   <- Dsb[[name]]$p[!oo,,drop=FALSE]
       Dsb[[name]]$idx <- Dsb[[name]]$idx[!oo]
+      #convert to cartesian/spherical coordinates (comment by JL 2019)
       Dsc[[name]] <- bary.to.sphere.cart(r$phi, r$lambda, r$R, r$Tt, Dsb[[name]])
       Dss[[name]] <- sphere.cart.to.sphere.spherical(Dsc[[name]], r$R)
     }

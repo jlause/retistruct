@@ -5,7 +5,8 @@
 \title{Reconstruct a retina}
 \usage{
 retistruct.reconstruct(o, report = message, plot.3d = FALSE,
-  dev.flat = NA, dev.polar = NA, ...)
+  dev.flat = NA, dev.polar = NA, reuse_reconstruction = FALSE,
+  old_reconstruction = NULL, ...)
 }
 \arguments{
 \item{o}{\code{\link{AnnotatedOutline}} object}

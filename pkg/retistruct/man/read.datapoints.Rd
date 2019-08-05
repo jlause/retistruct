@@ -4,7 +4,7 @@
 \alias{read.datapoints}
 \title{Read data points in CSV format}
 \usage{
-read.datapoints(dataset)
+read.datapoints(dataset, path_only = FALSE, path = NULL)
 }
 \arguments{
 \item{dataset}{Path to directory containing \code{dataponts.csv}}
