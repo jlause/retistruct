@@ -12,7 +12,9 @@ devtools::install_github("jlause/retistruct@v0.5.12_local", subdir="pkg/retistru
 Changelog:
 
 -Disabled KDE/Countour computation for speed
+
 -Disabled .mat file saving for speed
+
 -Added CSV file saving for spherical and cartesian coordinates (for each dataset)
 
 ---
