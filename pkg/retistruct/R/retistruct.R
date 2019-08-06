@@ -361,8 +361,8 @@ retistruct.save.recdata <- function(r) {
       save(r, file=file.path(r$dataset, "r.Rdata"))
       #### Additional saving of spherical coordinates per dataset (JL 2019) ###
       for (dataset_name in names(r$Dsc)) {
-        write.table(r$Dsc[[dataset_name]],file=file.path(r$dataset, sprintf("datapoints_%s_cartesian.csv",dataset_name)),sep=',',dec = '.',row.names=FALSE)
-        write.table(r$Dss[[dataset_name]],file=file.path(r$dataset, sprintf("datapoints_%s_spherical.csv",dataset_name)),sep=',',dec = '.',row.names=FALSE)
+        readr::write_csv(data.frame(r$Dsc[[dataset_name]]),path=file.path(r$dataset, sprintf("datapoints_%s_cartesian.csv",dataset_name)))
+        readr::write_csv(data.frame(r$Dss[[dataset_name]]),path=file.path(r$dataset, sprintf("datapoints_%s_spherical.csv",dataset_name)))
       }
       
       #########################################################################

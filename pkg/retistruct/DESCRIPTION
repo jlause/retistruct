@@ -16,6 +16,7 @@ Date: 2017-08-08
 Depends:
     R (>= 3.1.0)
 Imports:
+    readr,
     foreign,
     RImageJROI,
     png,
