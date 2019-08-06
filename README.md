@@ -9,6 +9,16 @@ To install this version, it's helpful to have the R package `devtools` installed
 devtools::install_github("jlause/retistruct@v0.5.12_local", subdir="pkg/retistruct")
 ```
 
+To start, use
+
+```
+library(retistruct)
+retistruct()
+```
+
+in R. During the first run, R will install some additional packages.
+
+
 Changelog:
 
 -Disabled KDE/Countour computation for speed
