@@ -1,12 +1,18 @@
 Retistruct v0.5.12_local 
 ==========
 
-This is a fork of `retistruct v0.5.12`, customized to quickly export projected datapoints as CSV files when using the SAVE button in th GUI.
+This is a fork of David C Sterratt's `retistruct v0.5.12`, customized to quickly export projected datapoints as CSV files when using the SAVE button in th GUI.
 
 To install this version, it's helpful to have the R package `devtools` installed. Then, in R, call:
 
 ```
 devtools::install_github("jlause/retistruct@v0.5.12_local", subdir="pkg/retistruct")
+```
+
+
+To fix a recent issue with the geometry package used by retistruct, make sure to install the most recent version of that staight from David Sterratt's github repo:
+```
+devtools::install_github("davidcsterratt/geometry", subdir="pkg")
 ```
 
 To start, use
