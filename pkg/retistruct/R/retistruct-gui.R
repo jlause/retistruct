@@ -283,8 +283,8 @@ retistruct <- function() {
       retistruct.save.recdata(r)
     }
     ### disabled for speed (JL 2019) ##########
-    report('not saving data to matlab file')
-    warning('not saving data to matlab file')
+    set.status('not saving data to matlab file')
+    # warning('not saving data to matlab file')
     #retistruct.export.matlab(r)
     ###########################################
     unsaved.data(FALSE)
